@@ -1,31 +1,37 @@
 int botao1 = 2;
 int botao2 = 3;
 int led = 4;
+const int debounceTime = 50; // Time in milliseconds to debounce button presses
 
 void setup() {
-  pinMode(botao1, INPUT);
+  pinMode(botao1, INPUT_PULLUP);
+  pinMode(botao2, INPUT_PULLUP);
   pinMode(led, OUTPUT);
   Serial.begin(9600);
 }
 
 int hours = 0;
 int minutes = 0;
+unsigned long lastDebounceTime1 = 0;
+unsigned long lastDebounceTime2 = 0;
 
 void loop() {
-  delay(500);
-  
-  boolean isPushed1 = (digitalRead(botao1) == LOW);
-  boolean isPushed2 = (digitalRead(botao2) == LOW);
+  delay(150);
 
-  if(isPushed2){
+  // Debounce button presses
+  unsigned long currentTime = millis();
+  if (digitalRead(botao1) == LOW && (currentTime - lastDebounceTime1) > debounceTime) {
+    lastDebounceTime1 = currentTime;
+    sumHour();
+  }
+  if (digitalRead(botao2) == LOW && (currentTime - lastDebounceTime2) > debounceTime) {
+    lastDebounceTime2 = currentTime;
     sumMin();
-  }else if(isPushed1){
-    sumHour();  
   }
 
-  Serial.print(hours);
+  Serial.print(formatNum(hours));
   Serial.print(":");
-  Serial.println(minutes);
+  Serial.println(formatNum(minutes));
 }
 
 void sumHour(){
@@ -33,7 +39,7 @@ void sumHour(){
     hours = 0;
   }else{
     hours++;
-  } 
+  }
 }
 
 void sumMin() {
@@ -45,10 +51,10 @@ void sumMin() {
   }
 }
 
-String formatNum(number){
+String formatNum(int number){
  if(number < 10){
   return "0"+number; 
  }else{
-  return number; 
+  return String(number); 
  }
 }
