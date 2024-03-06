@@ -56,7 +56,7 @@ void sumHour() {
 
 void sumMin() {
   if ((minutes + 1) >= 60) {
-    hours++;
+    sumHour();
     minutes = 0;
   } else {
     minutes++;
@@ -65,7 +65,7 @@ void sumMin() {
 
 void sumSec() {
   if ((seconds + 1) >= 60) {
-    minutes++;
+    sumMin();
     seconds = 0;
   } else {
     seconds++;
