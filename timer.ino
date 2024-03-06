@@ -31,6 +31,14 @@ void loop() {
     sumMin();
   }
 
+  if(formatNum(hours)+":"+formatNum(minutes)+":"+formatNum(seconds) == "07:30:00"){
+     digitalWrite(led, HIGH);
+     delay(60000);
+     sumMin();
+  }else{
+    digitalWrite(led, LOW);
+  }
+
   Serial.print(formatNum(hours));
   Serial.print(":");
   Serial.print(formatNum(minutes));
