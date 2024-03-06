@@ -8,7 +8,7 @@ void setup() {
 }
 
 void loop() {
-  boolean isPushed = !digitalRead(botao1);
+  boolean isPushed = (digitalRead(botao1) == LOW);
   Serial.println(isPushed);
   if(isPushed){
     digitalWrite(led, HIGH);
