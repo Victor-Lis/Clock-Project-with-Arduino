@@ -12,12 +12,14 @@ void setup() {
 
 int hours = 0;
 int minutes = 0;
+int seconds = 0;
 unsigned long lastDebounceTime1 = 0;
 unsigned long lastDebounceTime2 = 0;
 
 void loop() {
-  delay(150);
-
+  delay(1000);
+  sumSec();
+  
   // Debounce button presses
   unsigned long currentTime = millis();
   if (digitalRead(botao1) == LOW && (currentTime - lastDebounceTime1) > debounceTime) {
@@ -31,7 +33,9 @@ void loop() {
 
   Serial.print(formatNum(hours));
   Serial.print(":");
-  Serial.println(formatNum(minutes));
+  Serial.print(formatNum(minutes));
+  Serial.print(":");
+  Serial.println(formatNum(seconds));
 }
 
 void sumHour() {
@@ -48,6 +52,15 @@ void sumMin() {
     minutes = 0;
   } else {
     minutes++;
+  }
+}
+
+void sumSec() {
+  if ((seconds + 1) >= 60) {
+    minutes++;
+    seconds = 0;
+  } else {
+    seconds++;
   }
 }
 
