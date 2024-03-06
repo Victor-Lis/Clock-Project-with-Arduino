@@ -34,27 +34,27 @@ void loop() {
   Serial.println(formatNum(minutes));
 }
 
-void sumHour(){
-  if((hours+1) == 24){
+void sumHour() {
+  if ((hours + 1) == 24) {
     hours = 0;
-  }else{
+  } else {
     hours++;
   }
 }
 
 void sumMin() {
-  if((minutes+1) >= 60){
+  if ((minutes + 1) >= 60) {
     hours++;
     minutes = 0;
-  }else{
+  } else {
     minutes++;
   }
 }
 
-String formatNum(int number){
- if(number < 10){
-  return "0"+number; 
- }else{
-  return String(number); 
- }
+String formatNum(int number) {
+  if (number < 10) {
+    return "0" + String(number);
+  } else {
+    return String(number);
+  }
 }
